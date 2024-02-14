@@ -2,6 +2,25 @@
 
 - [Remix Docs](https://remix.run/docs)
 
+## Setup
+
+```sh
+git clone https://github.com/tohhongxiang123/remix-tutorial-walkthrough.git
+cd remix-tutorial-walkthrough
+
+npm install
+npx prisma db push
+```
+
+## Looking at DB
+
+```sh
+npx prisma studio
+```
+
+Then go to `http://localhost:5555`
+
+
 ## Development
 
 From your terminal:
