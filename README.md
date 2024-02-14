@@ -1,6 +1,6 @@
-# Welcome to Remix!
+# Remix Tutorial Walkthrough
 
-- [Remix Docs](https://remix.run/docs)
+Following the [Remix Jokes Tutorial](https://remix.run/docs/en/main/tutorials/jokes)
 
 ## Setup
 
