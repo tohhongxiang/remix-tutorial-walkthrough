@@ -33,6 +33,7 @@ export default function JokesRoute() {
                             to="/"
                             title="Remix Jokes"
                             aria-label="Remix Jokes"
+                            prefetch="intent"
                         >
                             <span className="logo">🤪</span>
                             <span className="logo-medium">J🤪KES</span>
