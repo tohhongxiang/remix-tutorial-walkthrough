@@ -1,6 +1,7 @@
 import {
     ActionFunctionArgs,
     LoaderFunctionArgs,
+    MetaFunction,
     json,
     redirect,
 } from "@remix-run/node";
@@ -25,6 +26,21 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     }
 
     return json({ joke, isOwner: userId === joke.jokesterId });
+};
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+    const { description, title } = data
+        ? {
+              description: `Enjoy the "${data.joke.name}" joke and much more`,
+              title: `"${data.joke.name}" joke`,
+          }
+        : { description: "No joke found", title: "No joke" };
+
+    return [
+        { name: "description", content: description },
+        { name: "twitter:description", content: description },
+        { title },
+    ];
 };
 
 export const action = async ({ params, request }: ActionFunctionArgs) => {
