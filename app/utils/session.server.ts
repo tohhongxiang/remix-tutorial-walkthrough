@@ -3,11 +3,6 @@ import bcrypt from "bcryptjs";
 import { db } from "./db.server";
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
 
-type LoginForm = {
-    password: string;
-    username: string;
-};
-
 export async function login({ password, username }: LoginForm) {
     const user = await db.user.findUnique({
         where: { username },
@@ -105,4 +100,14 @@ export async function logout(request: Request) {
             "Set-Cookie": await storage.destroySession(session),
         },
     });
+}
+
+type LoginForm = {
+    password: string;
+    username: string;
+};
+export async function register({ username, password }: LoginForm) {
+    const passwordHash = await bcrypt.hash(password, 10);
+    const user = await db.user.create({ data: { passwordHash, username } });
+    return { id: user.id, username };
 }
