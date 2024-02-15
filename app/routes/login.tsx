@@ -23,7 +23,7 @@ function validatePassword(password: string) {
 }
 
 function validateUrl(url: string) {
-    const urls = ["/jokes", "/", "https://remix.run"];
+    const urls = ["/jokes", "/", "/jokes/new", "https://remix.run"];
     if (urls.includes(url)) {
         return url;
     }
@@ -38,6 +38,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     const redirectTo = validateUrl(
         (form.get("redirectTo") as string) || "/jokes"
     );
+
     if (
         typeof loginType !== "string" ||
         typeof password !== "string" ||
@@ -68,7 +69,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
             // login to get the user
             // if there's no user, return the fields and a formError
             const user = await login({ username, password });
-            console.log({ user });
             if (!user) {
                 return badRequest({
                     fieldErrors: null,
@@ -77,6 +77,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
                 });
             }
 
+            console.log(redirectTo);
             // if there is a user, create their session and redirect to /jokes
             return createUserSession(user.id, redirectTo);
         }
